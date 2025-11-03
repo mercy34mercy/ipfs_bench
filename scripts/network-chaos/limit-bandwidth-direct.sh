@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# Script to limit bandwidth by running tc directly in containers
+# Requires containers to have iproute2 installed and NET_ADMIN capability
+# Usage: ./limit-bandwidth-direct.sh <rate>
+# Example: ./limit-bandwidth-direct.sh 10mbit
+
+set -e
+
+# Color output functions
+print_blue() {
+    echo -e "\033[0;34m${1}\033[0m"
+}
+
+print_green() {
+    echo -e "\033[0;32m${1}\033[0m"
+}
+
+print_red() {
+    echo -e "\033[0;31m${1}\033[0m"
+}
+
+print_yellow() {
+    echo -e "\033[0;33m${1}\033[0m"
+}
+
+# Check parameters
+if [ $# -lt 1 ]; then
+    print_red "Usage: $0 <rate>"
+    print_red "Example: $0 10mbit"
+    print_red "Example: $0 100mbit"
+    echo "Available containers:"
+    docker ps --format "table {{.Names}}" | grep -E "(ipfs-org|ipfs-bench)"
+    exit 1
+fi
+
+RATE=$1
+
+# Get all relevant containers
+CONTAINERS=$(docker ps --format "{{.Names}}" | grep -E "(ipfs-org|ipfs-bench)" || true)
+
+if [ -z "$CONTAINERS" ]; then
+    print_red "Error: No IPFS or benchmark containers found"
+    exit 1
+fi
+
+print_blue "Found containers:"
+echo "$CONTAINERS"
+echo ""
+
+SUCCESS_COUNT=0
+FAIL_COUNT=0
+
+for CONTAINER_NAME in $CONTAINERS; do
+    print_blue "Applying bandwidth limit (${RATE}) to $CONTAINER_NAME..."
+
+    # Get container's network interface
+    INTERFACE=$(docker exec $CONTAINER_NAME sh -c "ip route | grep default | awk '{print \$5}'" 2>/dev/null || echo "eth0")
+
+    # Remove existing qdisc
+    docker exec $CONTAINER_NAME tc qdisc del dev $INTERFACE root 2>/dev/null || true
+
+    # Apply rate limit using netem
+    if docker exec $CONTAINER_NAME tc qdisc add dev $INTERFACE root netem rate $RATE 2>&1 | grep -q "Operation not permitted"; then
+        print_yellow "  ⚠️  $CONTAINER_NAME lacks NET_ADMIN capability, skipping"
+        continue
+    elif docker exec $CONTAINER_NAME tc qdisc show dev $INTERFACE | grep -q "rate.*${RATE}"; then
+        print_green "  ✅ Applied ${RATE} limit to $CONTAINER_NAME ($INTERFACE)"
+        SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+    else
+        print_red "  ❌ Failed to apply limit to $CONTAINER_NAME"
+        FAIL_COUNT=$((FAIL_COUNT + 1))
+    fi
+done
+
+echo ""
+print_blue "======================================"
+print_green "Successfully applied: $SUCCESS_COUNT containers"
+if [ $FAIL_COUNT -gt 0 ]; then
+    print_red "Failed: $FAIL_COUNT containers"
+fi
+print_yellow "Bandwidth limit: ${RATE} (egress)"
+print_yellow "Note: All containers with this limit will throttle both"
+print_yellow "      upload (from container) and download (to container)"
+print_blue "======================================"
+
+# Show tc rules for verification
+print_blue "\nVerifying tc rules on ipfs-bench:"
+docker exec ipfs-bench tc qdisc show dev eth0 2>/dev/null | grep -E "(qdisc|rate)" || print_yellow "Could not verify"
+
+print_blue "\nVerifying tc rules on ipfs-org1:"
+docker exec ipfs-org1 tc qdisc show dev eth0 2>/dev/null | grep -E "(qdisc|rate)" || print_yellow "Could not verify"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ $FAIL_COUNT -eq 0 ]; then
+        osascript -e "display notification \"Bandwidth limit ($RATE) applied to $SUCCESS_COUNT containers\" with title \"TC Bandwidth Limit\" sound name \"Glass\""
+    fi
+fi
+
+exit $FAIL_COUNT

@@ -1,0 +1,114 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="IPFS Network Topology" id="network-topology">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Upload Scenario -->
+        <mxCell id="upload-title" value="&lt;b&gt;UPLOAD: ipfs-bench → ipfs-org1 Only&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ipfs-bench (upload) -->
+        <mxCell id="bench-upload" value="&lt;b&gt;ipfs-bench&lt;/b&gt;&lt;br&gt;(10mbit限制)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ipfs-org1 (upload target) -->
+        <mxCell id="org1-upload" value="&lt;b&gt;ipfs-org1&lt;/b&gt;&lt;br&gt;(10mbit限制)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="360" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Upload arrow -->
+        <mxCell id="upload-arrow" value="&lt;b&gt;10Mbps&lt;/b&gt;&lt;br&gt;Upload File" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#FF0000;fontSize=12;fontColor=#FF0000;" edge="1" parent="1" source="bench-upload" target="org1-upload">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Other nodes (grayed out during upload) -->
+        <mxCell id="org2-upload-gray" value="ipfs-org2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="240" y="200" width="100" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="org3-upload-gray" value="ipfs-org3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="360" y="200" width="100" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="org-others-upload" value="ipfs-org4 ~ org10&lt;br&gt;(使用されない)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="480" y="200" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Upload explanation -->
+        <mxCell id="upload-explain" value="✓ アップロード速度: 10MB / 8.78s = 1.14 MB/s&lt;br&gt;✓ 制限が正しく効いている (10Mbps = 1.25 MB/s理論値)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="270" width="560" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Divider line -->
+        <mxCell id="divider" value="" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#000000;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="40" y="360" as="sourcePoint" />
+            <mxPoint x="600" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Download Scenario -->
+        <mxCell id="download-title" value="&lt;b&gt;DOWNLOAD: Multiple Nodes → ipfs-bench (Parallel)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#0000FF;" vertex="1" parent="1">
+          <mxGeometry x="80" y="380" width="500" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ipfs-bench (download) -->
+        <mxCell id="bench-download" value="&lt;b&gt;ipfs-bench&lt;/b&gt;&lt;br&gt;(10mbit限制)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ipfs-org1 (download source) -->
+        <mxCell id="org1-download" value="&lt;b&gt;ipfs-org1&lt;/b&gt;&lt;br&gt;(10mbit限制)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="420" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ipfs-org2 (download source) -->
+        <mxCell id="org2-download" value="&lt;b&gt;ipfs-org2&lt;/b&gt;&lt;br&gt;(10mbit限制)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="490" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ipfs-org3 (download source) -->
+        <mxCell id="org3-download" value="&lt;b&gt;ipfs-org3&lt;/b&gt;&lt;br&gt;(10mbit限制)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="560" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Other nodes -->
+        <mxCell id="org-others-download" value="ipfs-org4 ~ org10&lt;br&gt;(各10mbit限制)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="440" y="490" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Download arrows -->
+        <mxCell id="download-arrow1" value="Block 1&lt;br&gt;10Mbps" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0000FF;fontSize=10;fontColor=#0000FF;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="org1-download" target="bench-download">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="download-arrow2" value="Block 2&lt;br&gt;10Mbps" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0000FF;fontSize=10;fontColor=#0000FF;" edge="1" parent="1" source="org2-download" target="bench-download">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="download-arrow3" value="Block 3&lt;br&gt;10Mbps" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0000FF;fontSize=10;fontColor=#0000FF;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="org3-download" target="bench-download">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="download-arrow-others" value="Blocks 4-N&lt;br&gt;各10Mbps" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0000FF;fontSize=10;fontColor=#0000FF;dashed=1;" edge="1" parent="1" source="org-others-download" target="bench-download">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Download calculation -->
+        <mxCell id="download-calc" value="&lt;b&gt;並列ダウンロードの計算:&lt;/b&gt;&lt;br&gt;• 各ノード: 10Mbps限制&lt;br&gt;• 複数ノードから同時受信: 10 nodes × 10Mbps = 100Mbps (理論値)&lt;br&gt;• 実測: 10MB / 1.39s = 7.19 MB/s ≈ 57.5Mbps" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="640" width="520" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Summary box -->
+        <mxCell id="summary" value="&lt;b&gt;結論:&lt;/b&gt;&lt;br&gt;• Upload: 1対1通信 → 帯域制限が効く (1.14 MB/s)&lt;br&gt;• Download: 並列通信 → 複数ノードの帯域が合算 (7.19 MB/s)&lt;br&gt;• これはIPFSの正常な動作（分散ダウンロード）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="740" width="520" height="80" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

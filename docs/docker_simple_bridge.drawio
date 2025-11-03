@@ -1,0 +1,158 @@
+<mxfile host="65bd71144e">
+    <diagram id="docker-simple-bridge" name="Docker Simple Bridge Network">
+        <mxGraphModel dx="1432" dy="1154" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="通常のDocker Bridge Network - OSI レイヤー" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="400" y="20" width="800" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="subtitle" value="全コンテナが同じBridgeネットワークに接続（Layer 2で直接通信）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="60" width="800" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="layer7" value="Layer 7&#xa;Application" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="120" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="layer4" value="Layer 4&#xa;Transport" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="200" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="layer3" value="Layer 3&#xa;Network (IP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="280" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="layer2" value="Layer 2&#xa;Data Link" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="360" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="layer1" value="Layer 1&#xa;Physical" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="440" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="host-container" value="Host System (macOS / Linux)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;fontSize=16;fontStyle=1;dashed=1;dashPattern=8 8;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="100" width="1030" height="590" as="geometry"/>
+                </mxCell>
+                <mxCell id="docker-container" value="Docker Engine" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=14;fontStyle=1;dashed=1;dashPattern=4 4;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="140" width="970" height="510" as="geometry"/>
+                </mxCell>
+                <mxCell id="container1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;verticalAlign=top;dashed=1;dashPattern=4 4;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="180" width="180" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="container1-label" value="Container: ipfs-bench" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="300" y="180" width="180" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="app-bench" value="IPFS Client App&#xa;(Go HTTP Client)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="320" y="210" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcp-bench" value="TCP Socket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="320" y="270" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip-bench" value="IP: 172.18.0.10/16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="320" y="320" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="veth-bench" value="eth0 (veth)&#xa;MAC: 02:42:ac:12:00:0a" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" parent="1" vertex="1">
+                    <mxGeometry x="320" y="370" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-bench-l7-l4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="app-bench" target="tcp-bench" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-bench-l4-l3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#82b366;" parent="1" source="tcp-bench" target="ip-bench" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-bench-l3-l2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1" source="ip-bench" target="veth-bench" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="container2-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;verticalAlign=top;dashed=1;dashPattern=4 4;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="180" width="180" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="container2-label" value="Container: ipfs-org1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="540" y="180" width="180" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="app-org1" value="IPFS Kubo&#xa;(HTTP API Server)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="560" y="210" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcp-org1" value="TCP Socket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="560" y="270" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip-org1" value="IP: 172.18.0.11/16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="560" y="320" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="veth-org1" value="eth0 (veth)&#xa;MAC: 02:42:ac:12:00:0b" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" parent="1" vertex="1">
+                    <mxGeometry x="560" y="370" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-org1-l7-l4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="app-org1" target="tcp-org1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-org1-l4-l3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#82b366;" parent="1" source="tcp-org1" target="ip-org1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-org1-l3-l2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1" source="ip-org1" target="veth-org1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="container3-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;verticalAlign=top;dashed=1;dashPattern=4 4;" parent="1" vertex="1">
+                    <mxGeometry x="780" y="180" width="180" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="container3-label" value="Container: ipfs-org2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="780" y="180" width="180" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="app-org2" value="IPFS Kubo&#xa;(Bitswap + HTTP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="800" y="210" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcp-org2" value="TCP Socket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="800" y="270" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ip-org2" value="IP: 172.18.0.12/16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" parent="1" vertex="1">
+                    <mxGeometry x="800" y="320" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="veth-org2" value="eth0 (veth)&#xa;MAC: 02:42:ac:12:00:0c" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" parent="1" vertex="1">
+                    <mxGeometry x="800" y="370" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-org2-l7-l4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="app-org2" target="tcp-org2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-org2-l4-l3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#82b366;" parent="1" source="tcp-org2" target="ip-org2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-org2-l3-l2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d6b656;" parent="1" source="ip-org2" target="veth-org2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="container-others-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;verticalAlign=top;dashed=1;dashPattern=4 4;" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="180" width="180" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="container-others-label" value="ipfs-org3 ... org10" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="260" width="180" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="veth-others" value="eth0 (veth)&#xa;172.18.0.13-20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" parent="1" vertex="1">
+                    <mxGeometry x="1040" y="370" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="bridge-main" value="Docker Bridge (br-docker0 or custom)&#xa;Subnet: 172.18.0.0/16&#xa;Layer 2 Switch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="300" y="520" width="900" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-veth-bench-bridge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.15;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;strokeColor=#d79b00;" parent="1" source="veth-bench" target="bridge-main" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-veth-org1-bridge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.35;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;strokeColor=#d79b00;" parent="1" source="veth-org1" target="bridge-main" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-veth-org2-bridge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.6;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;strokeColor=#d79b00;" parent="1" source="veth-org2" target="bridge-main" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="conn-veth-others-bridge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.85;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;strokeColor=#d79b00;" parent="1" source="veth-others" target="bridge-main" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="l2-comm-label" value="Layer 2で直接通信可能（同一Bridgeセグメント）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="480" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="direct-comm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;strokeColor=#ff6b6b;dashed=1;dashPattern=8 8;" parent="1" source="veth-bench" target="veth-org1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="490" y="390"/>
+                            <mxPoint x="490" y="440"/>
+                            <mxPoint x="530" y="440"/>
+                            <mxPoint x="530" y="390"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="direct-comm-label" value="直接通信" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#ff6b6b;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="470" y="440" width="80" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

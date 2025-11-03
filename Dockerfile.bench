@@ -1,0 +1,39 @@
+# Multi-stage build for IPFS benchmark tool
+FROM golang:1.22-alpine AS builder
+
+WORKDIR /build
+
+# Install dependencies
+RUN apk add --no-cache git
+
+# Copy go module files
+COPY go.mod go.sum* ./
+
+# Download dependencies
+RUN go mod download || true
+
+# Copy source code
+COPY main.go .
+COPY cmd/ ./cmd/
+
+# Build both applications
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ipfs-bench main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o bandwidth-test ./cmd/bandwidth-test/main.go
+
+# Final stage - minimal runtime
+FROM alpine:latest
+
+# Install ca-certificates for HTTPS, docker-cli for container management, bash for scripts, and iproute2 for tc
+RUN apk --no-cache add ca-certificates docker-cli docker-cli-compose bash iproute2
+
+WORKDIR /app
+
+# Copy the binaries from builder
+COPY --from=builder /build/ipfs-bench .
+COPY --from=builder /build/bandwidth-test .
+
+# Create directory for test files
+RUN mkdir -p /test-files /results
+
+# Default command - just sleep, will be invoked manually
+CMD ["sleep", "infinity"]

@@ -1,0 +1,50 @@
+# GCP Project Configuration for research-383706
+project_id = "research-383706"
+
+# Region and Zone
+region = "asia-northeast1"       # Tokyo region
+zone   = "asia-northeast1-a"     # Tokyo zone A
+
+# Resource naming
+prefix      = "ipfs-bench"
+environment = "research"
+
+# Instance Configuration - COST OPTIMIZED
+node_count   = 4                 # Number of IPFS nodes
+machine_type = "e2-standard-2"   # 2 vCPUs, 8 GB (cost-optimized)
+
+# OS and Disk
+os_image     = "ubuntu-os-cloud/ubuntu-2204-lts"
+disk_size_gb = 30
+disk_type    = "pd-standard"  # Standard persistent disk (cheapest)
+
+# Cost Optimization - RECOMMENDED
+use_preemptible = true   # 80% cost savings! (instances may be terminated within 24h)
+use_static_ip   = false  # No static IP needed for benchmarks (saves ~$0.32/8h)
+
+# Network Configuration
+create_vpc = false  # Use default VPC
+
+# Security
+allowed_ip_ranges = ["0.0.0.0/0"]  # Allow from anywhere
+# For better security, restrict to your IP:
+# allowed_ip_ranges = ["YOUR_IP_ADDRESS/32"]
+# Check your IP: curl ifconfig.me
+
+# SSH Configuration
+ssh_user       = "ubuntu"
+ssh_public_key = ""  # Leave empty to use gcloud compute ssh
+
+# Repository (optional)
+repo_url = ""  # Add your repo URL here to auto-clone
+# Example: "https://github.com/your-username/ipfs_bench.git"
+
+# ========================================
+# COST ESTIMATE (8 hours benchmark)
+# ========================================
+# Instances (e2-standard-2 preemptible): $0.64
+# Disk (30GB standard × 4):               $0.16
+# Network (50GB egress):                  $6.00
+# ─────────────────────────────────────────────
+# TOTAL:                                  $6.80 ≈ ¥1,020
+# ========================================

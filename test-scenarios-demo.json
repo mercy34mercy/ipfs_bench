@@ -1,0 +1,50 @@
+{
+  "testConfiguration": {
+    "name": "IPFS Bandwidth Performance Test (Demo)",
+    "description": "Quick demo test with container restarts",
+    "testDirectory": "/test-files",
+    "iterations": 2,
+    "outputDirectory": "/results",
+    "timeout": 600000
+  },
+  "testFiles": [
+    {
+      "filename": "test10m.dat",
+      "size": "10MB",
+      "sizeBytes": 10485760
+    }
+  ],
+  "networkScenarios": [
+    {
+      "id": "no-limit",
+      "name": "No Bandwidth Limit",
+      "description": "Baseline test with no network restrictions",
+      "bandwidth": null,
+      "bandwidthCommand": null,
+      "enabled": true
+    },
+    {
+      "id": "10mbps",
+      "name": "10 Mbps Bandwidth",
+      "description": "Test with 10 Mbps bandwidth limit",
+      "bandwidth": "10mbit",
+      "bandwidthValue": 10000000,
+      "bandwidthCommand": "/app/scripts/network-chaos/limit-bandwidth-all.sh",
+      "enabled": true
+    }
+  ],
+  "testTargets": [
+    {
+      "container": "ipfs-org1",
+      "role": "upload",
+      "apiPort": 5001,
+      "gatewayPort": 8080
+    },
+    {
+      "container": "ipfs-org2",
+      "role": "download",
+      "apiPort": 5001,
+      "gatewayPort": 8080
+    }
+  ]
+}

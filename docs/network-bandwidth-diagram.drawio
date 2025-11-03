@@ -1,0 +1,193 @@
+<mxfile host="app.diagrams.net" modified="2025-10-27T00:00:00.000Z" agent="Claude Code" version="22.0.0">
+  <diagram name="Network Bandwidth Comparison" id="network-bandwidth">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title1" value="現実のインターネット環境 (正しい挙動)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Real Internet Diagram -->
+        <mxCell id="home-network" value="自宅ネットワーク&#xa;(10Mbps回線)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="240" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-bench-real" value="ipfs-bench" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="160" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="internet-cloud" value="インターネット" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="420" y="140" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org1-real" value="ipfs-org1&#xa;(10Mbps egress)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="100" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org2-real" value="ipfs-org2&#xa;(10Mbps egress)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="180" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org3-real" value="ipfs-org3&#xa;(10Mbps egress)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="260" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows for Real Internet -->
+        <mxCell id="arrow-real-1" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#CC0000;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ipfs-bench-real" target="internet-cloud">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="190" as="sourcePoint" />
+            <mxPoint x="420" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-real-label" value="10Mbps総量制限&#xa;(回線の物理的制限)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#CC0000;fontStyle=1" vertex="1" connectable="0" parent="arrow-real-1">
+          <mxGeometry x="-0.1" y="2" relative="1" as="geometry">
+            <mxPoint x="8" y="-25" as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-real-2" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#999999;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="internet-cloud" target="ipfs-org1-real">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="580" y="170" as="sourcePoint" />
+            <mxPoint x="720" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-real-3" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#999999;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="internet-cloud" target="ipfs-org2-real">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="580" y="190" as="sourcePoint" />
+            <mxPoint x="720" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-real-4" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#999999;exitX=1;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="internet-cloud" target="ipfs-org3-real">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="580" y="210" as="sourcePoint" />
+            <mxPoint x="720" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="result-real" value="✅ 総ダウンロード速度 = 10Mbps&#xa;(複数ノードから受信しても回線上限で制限される)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="340" width="780" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Docker Network Diagram (Current - Wrong) -->
+        <mxCell id="title2" value="現在のDocker環境 (間違っている ❌)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#CC0000" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="docker-network-wrong" value="Docker Network (仮想ネットワーク)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="500" width="780" height="260" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-bench-docker" value="ipfs-bench&#xa;(10Mbps egress制限のみ)&#xa;❌ ingress制限なし" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontColor=#CC0000;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="120" y="560" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org1-docker" value="ipfs-org1&#xa;(10Mbps egress制限)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="540" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org2-docker" value="ipfs-org2&#xa;(10Mbps egress制限)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="620" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org3-docker" value="ipfs-org3&#xa;(10Mbps egress制限)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="700" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows for Docker Wrong -->
+        <mxCell id="arrow-docker-1" value="10Mbps" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#009900;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ipfs-org1-docker" target="ipfs-bench-docker">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="570" as="sourcePoint" />
+            <mxPoint x="300" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-docker-2" value="10Mbps" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#009900;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ipfs-org2-docker" target="ipfs-bench-docker">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="650" as="sourcePoint" />
+            <mxPoint x="300" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-docker-3" value="10Mbps" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#009900;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="ipfs-org3-docker" target="ipfs-bench-docker">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="730" as="sourcePoint" />
+            <mxPoint x="300" y="625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="result-docker-wrong" value="❌ 総ダウンロード速度 = 30Mbps以上&#xa;(ipfs-benchの受信制限がないため、全ての送信が通ってしまう)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;fontStyle=1;fontColor=#CC0000" vertex="1" parent="1">
+          <mxGeometry x="80" y="780" width="780" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Docker Network Diagram (Correct) -->
+        <mxCell id="title3" value="修正後のDocker環境 (正しい設定 ✅)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#009900" vertex="1" parent="1">
+          <mxGeometry x="40" y="880" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="docker-network-correct" value="Docker Network (仮想ネットワーク)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="940" width="780" height="260" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-bench-correct" value="ipfs-bench&#xa;(10Mbps egress制限)&#xa;✅ 10Mbps ingress制限追加" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontColor=#009900;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="120" y="1000" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org1-correct" value="ipfs-org1&#xa;(10Mbps egress制限)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="980" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org2-correct" value="ipfs-org2&#xa;(10Mbps egress制限)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1060" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ipfs-org3-correct" value="ipfs-org3&#xa;(10Mbps egress制限)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1140" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows for Docker Correct -->
+        <mxCell id="arrow-correct-1" value="10Mbps" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#999999;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;dashed=1" edge="1" parent="1" source="ipfs-org1-correct" target="ipfs-bench-correct">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="1010" as="sourcePoint" />
+            <mxPoint x="300" y="1015" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-correct-2" value="10Mbps" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#999999;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1" edge="1" parent="1" source="ipfs-org2-correct" target="ipfs-bench-correct">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="1090" as="sourcePoint" />
+            <mxPoint x="300" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-correct-3" value="10Mbps" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#999999;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;dashed=1" edge="1" parent="1" source="ipfs-org3-correct" target="ipfs-bench-correct">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="1170" as="sourcePoint" />
+            <mxPoint x="300" y="1065" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="ingress-limit" value="Ingress制限&#xa;(tc qdisc)&#xa;10Mbps総量" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="1015" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-ingress" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#CC0000;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ingress-limit" target="ipfs-bench-correct">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="1045" as="sourcePoint" />
+            <mxPoint x="300" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="result-correct" value="✅ 総ダウンロード速度 = 10Mbps&#xa;(ingress制限により、複数ノードからの受信も合計10Mbpsに制限される)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;fontColor=#009900" vertex="1" parent="1">
+          <mxGeometry x="80" y="1220" width="780" height="50" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

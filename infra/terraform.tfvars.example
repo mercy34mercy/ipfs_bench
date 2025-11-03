@@ -1,0 +1,45 @@
+# GCP Project Configuration
+project_id = "YOUR_GCP_PROJECT_ID"  # Required: Replace with your GCP project ID
+
+# Region and Zone
+region = "asia-northeast1"       # Tokyo region
+zone   = "asia-northeast1-a"     # Tokyo zone A
+
+# Resource naming
+prefix      = "ipfs-bench"
+environment = "dev"
+
+# Instance Configuration
+node_count   = 4                 # Number of IPFS nodes to create
+machine_type = "n1-standard-2"   # 2 vCPUs, 7.5 GB memory
+# Other options:
+# - "n2-standard-2"   # 2 vCPUs, 8 GB (newer generation)
+# - "e2-standard-2"   # 2 vCPUs, 8 GB (cost-optimized)
+# - "n1-standard-4"   # 4 vCPUs, 15 GB
+
+# OS and Disk
+os_image     = "ubuntu-os-cloud/ubuntu-2204-lts"
+disk_size_gb = 30
+disk_type    = "pd-standard"  # pd-standard | pd-balanced | pd-ssd
+
+# Cost Optimization
+use_preemptible = false  # Set to true for ~80% cost savings (but instances can be terminated)
+use_static_ip   = false  # Set to true if you need persistent IP addresses
+
+# Network Configuration
+create_vpc = false  # Set to true to create a new VPC, false to use default VPC
+
+# Security
+allowed_ip_ranges = ["0.0.0.0/0"]  # Allow from anywhere
+# For better security, restrict to your IP:
+# allowed_ip_ranges = ["YOUR_IP_ADDRESS/32"]
+
+# SSH Configuration
+ssh_user       = "ubuntu"
+ssh_public_key = ""  # Optional: Add your SSH public key
+# Example: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC... user@example.com"
+# Leave empty to use `gcloud compute ssh`
+
+# Repository (optional)
+repo_url = ""  # Optional: Git repository URL to auto-clone
+# Example: "https://github.com/your-username/ipfs_bench.git"

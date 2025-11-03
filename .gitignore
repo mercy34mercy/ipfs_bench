@@ -1,0 +1,65 @@
+# Terraform
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/terraform.tfstate
+infra/terraform.tfstate.backup
+infra/terraform.tfvars
+infra/*.tfplan
+infra/crash.log
+infra/.terraform.tfstate.lock.info
+infra/override.tf
+infra/override.tf.json
+infra/*_override.tf
+infra/*_override.tf.json
+
+# GCP credentials
+*credentials*.json
+*service-account*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+ENV/
+*.egg-info/
+
+# Go
+.gocache/
+bin/
+vendor/
+*.exe
+*.test
+*.out
+check
+
+# IPFS
+.ipfs/
+test-files/
+test-results/
+
+# Test results and benchmarks
+bench_results*.csv
+bench_upload_download_*.csv
+*.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.router

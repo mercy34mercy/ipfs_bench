@@ -1,0 +1,198 @@
+version: "3.8"
+
+x-ipfs-node: &ipfs-node
+  image: ipfs/kubo:latest
+  restart: unless-stopped
+  labels:
+    service: ipfs
+  environment:
+    LIBP2P_FORCE_PNET: "1"
+    LIBP2P_TCP_MUX: "false"
+    IPFS_TELEMETRY: "off"
+  cap_add:
+    - NET_ADMIN
+  entrypoint:
+    - /bin/sh
+    - /container-init/start-private-ipfs.sh
+  networks:
+    - private_ipfs
+
+services:
+  # Pumba - Chaos testing tool for Docker
+  pumba:
+    image: gaiaadm/pumba:latest
+    container_name: pumba
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --help  # Default shows help. Will be started with actual commands from scripts
+    networks:
+      - private_ipfs
+    restart: unless-stopped
+
+  # Benchmark client - runs inside Docker network to be affected by pumba
+  ipfs-bench:
+    build:
+      context: .
+      dockerfile: Dockerfile.bench
+    container_name: ipfs-bench
+    networks:
+      - private_ipfs
+    volumes:
+      - ./test-files:/test-files:ro
+      - ./test-results:/results
+      - ./test-scenarios.json:/app/test-scenarios.json:ro
+      - ./test-scenarios-demo.json:/app/test-scenarios-demo.json:ro
+      - ./scripts:/app/scripts:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      service: benchmark
+    cap_add:
+      - NET_ADMIN
+    # Don't start automatically - will be started manually with specific commands
+    command: sleep infinity
+    restart: unless-stopped
+
+  ipfs-org1:
+    <<: *ipfs-node
+    container_name: ipfs-org1
+    ports:
+      - "4001:4001/tcp"
+      - "4001:4001/udp"
+      - "5001:5001"
+      - "8081:8080"
+    volumes:
+      - ipfs-org1-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org2:
+    <<: *ipfs-node
+    container_name: ipfs-org2
+    ports:
+      - "4002:4001/tcp"
+      - "4002:4001/udp"
+      - "5002:5001"
+      - "8082:8080"
+    volumes:
+      - ipfs-org2-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org3:
+    <<: *ipfs-node
+    container_name: ipfs-org3
+    ports:
+      - "4003:4001/tcp"
+      - "4003:4001/udp"
+      - "5003:5001"
+      - "8083:8080"
+    volumes:
+      - ipfs-org3-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org4:
+    <<: *ipfs-node
+    container_name: ipfs-org4
+    ports:
+      - "4004:4001/tcp"
+      - "4004:4001/udp"
+      - "5004:5001"
+      - "8084:8080"
+    volumes:
+      - ipfs-org4-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org5:
+    <<: *ipfs-node
+    container_name: ipfs-org5
+    ports:
+      - "4005:4001/tcp"
+      - "4005:4001/udp"
+      - "5005:5001"
+      - "8085:8080"
+    volumes:
+      - ipfs-org5-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org6:
+    <<: *ipfs-node
+    container_name: ipfs-org6
+    ports:
+      - "4006:4001/tcp"
+      - "4006:4001/udp"
+      - "5006:5001"
+      - "8086:8080"
+    volumes:
+      - ipfs-org6-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org7:
+    <<: *ipfs-node
+    container_name: ipfs-org7
+    ports:
+      - "4007:4001/tcp"
+      - "4007:4001/udp"
+      - "5007:5001"
+      - "8087:8080"
+    volumes:
+      - ipfs-org7-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org8:
+    <<: *ipfs-node
+    container_name: ipfs-org8
+    ports:
+      - "4008:4001/tcp"
+      - "4008:4001/udp"
+      - "5008:5001"
+      - "8088:8080"
+    volumes:
+      - ipfs-org8-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org9:
+    <<: *ipfs-node
+    container_name: ipfs-org9
+    ports:
+      - "4009:4001/tcp"
+      - "4009:4001/udp"
+      - "5009:5001"
+      - "8089:8080"
+    volumes:
+      - ipfs-org9-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+  ipfs-org10:
+    <<: *ipfs-node
+    container_name: ipfs-org10
+    ports:
+      - "4010:4001/tcp"
+      - "4010:4001/udp"
+      - "5010:5001"
+      - "8090:8080"
+    volumes:
+      - ipfs-org10-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+
+networks:
+  private_ipfs:
+
+volumes:
+  ipfs-org1-data:
+  ipfs-org2-data:
+  ipfs-org3-data:
+  ipfs-org4-data:
+  ipfs-org5-data:
+  ipfs-org6-data:
+  ipfs-org7-data:
+  ipfs-org8-data:
+  ipfs-org9-data:
+  ipfs-org10-data:

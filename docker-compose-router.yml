@@ -1,0 +1,496 @@
+version: "3.8"
+
+# ============================================
+# Single Router Architecture - 10 Nodes
+# ============================================
+# One central router with bandwidth limits that
+# all IPFS nodes must go through.
+# ============================================
+
+services:
+  # ========================================
+  # Central Router (all traffic goes through here)
+  # ========================================
+  router:
+    image: alpine:latest
+    container_name: router
+    hostname: router
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+    environment:
+      BANDWIDTH_RATE: ${BANDWIDTH_RATE:-10mbit}
+      BANDWIDTH_BURST: ${BANDWIDTH_BURST:-32kbit}
+      BANDWIDTH_LATENCY: ${BANDWIDTH_LATENCY:-400ms}
+      NETWORK_DELAY: ${NETWORK_DELAY:-50ms}
+      PACKET_LOSS: ${PACKET_LOSS:-0}
+    volumes:
+      - ./container-init/setup-router-single.sh:/setup-router-single.sh:ro
+    command: /bin/sh /setup-router-single.sh
+    networks:
+      - bench_net
+      - ipfs_org1_net
+      - ipfs_org2_net
+      - ipfs_org3_net
+      - ipfs_org4_net
+      - ipfs_org5_net
+      - ipfs_org6_net
+      - ipfs_org7_net
+      - ipfs_org8_net
+      - ipfs_org9_net
+      - ipfs_org10_net
+    restart: unless-stopped
+
+  # ========================================
+  # IPFS Nodes (org1-org10)
+  # ========================================
+  ipfs-org1:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org1
+    hostname: ipfs-org1
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org1-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org1_net:
+        ipv4_address: 172.31.1.10
+    ports:
+      - "4001:4001/tcp"
+      - "4001:4001/udp"
+      - "5001:5001"
+      - "8081:8080"
+    restart: unless-stopped
+
+  ipfs-org2:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org2
+    hostname: ipfs-org2
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org2-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org2_net:
+        ipv4_address: 172.31.2.10
+    ports:
+      - "4002:4001/tcp"
+      - "4002:4001/udp"
+      - "5002:5001"
+      - "8082:8080"
+    restart: unless-stopped
+
+  ipfs-org3:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org3
+    hostname: ipfs-org3
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org3-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org3_net:
+        ipv4_address: 172.31.3.10
+    ports:
+      - "4003:4001/tcp"
+      - "4003:4001/udp"
+      - "5003:5001"
+      - "8083:8080"
+    restart: unless-stopped
+
+  ipfs-org4:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org4
+    hostname: ipfs-org4
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org4-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org4_net:
+        ipv4_address: 172.31.4.10
+    ports:
+      - "4004:4001/tcp"
+      - "4004:4001/udp"
+      - "5004:5001"
+      - "8084:8080"
+    restart: unless-stopped
+
+  ipfs-org5:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org5
+    hostname: ipfs-org5
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org5-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org5_net:
+        ipv4_address: 172.31.5.10
+    ports:
+      - "4005:4001/tcp"
+      - "4005:4001/udp"
+      - "5005:5001"
+      - "8085:8080"
+    restart: unless-stopped
+
+  ipfs-org6:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org6
+    hostname: ipfs-org6
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org6-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org6_net:
+        ipv4_address: 172.31.6.10
+    ports:
+      - "4006:4001/tcp"
+      - "4006:4001/udp"
+      - "5006:5001"
+      - "8086:8080"
+    restart: unless-stopped
+
+  ipfs-org7:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org7
+    hostname: ipfs-org7
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org7-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org7_net:
+        ipv4_address: 172.31.7.10
+    ports:
+      - "4007:4001/tcp"
+      - "4007:4001/udp"
+      - "5007:5001"
+      - "8087:8080"
+    restart: unless-stopped
+
+  ipfs-org8:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org8
+    hostname: ipfs-org8
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org8-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org8_net:
+        ipv4_address: 172.31.8.10
+    ports:
+      - "4008:4001/tcp"
+      - "4008:4001/udp"
+      - "5008:5001"
+      - "8088:8080"
+    restart: unless-stopped
+
+  ipfs-org9:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org9
+    hostname: ipfs-org9
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org9-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org9_net:
+        ipv4_address: 172.31.9.10
+    ports:
+      - "4009:4001/tcp"
+      - "4009:4001/udp"
+      - "5009:5001"
+      - "8089:8080"
+    restart: unless-stopped
+
+  ipfs-org10:
+    image: ipfs/kubo:latest
+    container_name: ipfs-org10
+    hostname: ipfs-org10
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+    environment:
+      LIBP2P_FORCE_PNET: "1"
+      LIBP2P_TCP_MUX: "false"
+      IPFS_TELEMETRY: "off"
+    volumes:
+      - ipfs-org10-data:/data/ipfs
+      - ./swarm.key:/container-init/swarm.key:ro
+      - ./container-init/start-private-ipfs.sh:/container-init/start-private-ipfs.sh:ro
+      - ./container-init/setup-ipfs-routing.sh:/container-init/setup-ipfs-routing.sh:ro
+      - ./container-init/start-ipfs-with-routing.sh:/container-init/start-ipfs-with-routing.sh:ro
+    entrypoint:
+      - /bin/sh
+      - /container-init/start-ipfs-with-routing.sh
+    networks:
+      ipfs_org10_net:
+        ipv4_address: 172.31.10.10
+    ports:
+      - "4010:4001/tcp"
+      - "4010:4001/udp"
+      - "5010:5001"
+      - "8090:8080"
+    restart: unless-stopped
+
+  # ========================================
+  # Benchmark Client
+  # ========================================
+  ipfs-bench:
+    build:
+      context: .
+      dockerfile: Dockerfile.bench
+    container_name: ipfs-bench
+    hostname: ipfs-bench
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - router
+      - ipfs-org1
+      - ipfs-org2
+      - ipfs-org3
+      - ipfs-org4
+      - ipfs-org5
+      - ipfs-org6
+      - ipfs-org7
+      - ipfs-org8
+      - ipfs-org9
+      - ipfs-org10
+    extra_hosts:
+      - "ipfs-org1:172.31.1.10"
+      - "ipfs-org2:172.31.2.10"
+      - "ipfs-org3:172.31.3.10"
+      - "ipfs-org4:172.31.4.10"
+      - "ipfs-org5:172.31.5.10"
+      - "ipfs-org6:172.31.6.10"
+      - "ipfs-org7:172.31.7.10"
+      - "ipfs-org8:172.31.8.10"
+      - "ipfs-org9:172.31.9.10"
+      - "ipfs-org10:172.31.10.10"
+    volumes:
+      - ./test-files:/test-files:ro
+      - ./test-results:/results
+      - ./test-scenarios.json:/app/test-scenarios.json:ro
+      - ./test-scenarios-router.json:/app/test-scenarios-router.json:ro
+      - ./test-scenarios-demo.json:/app/test-scenarios-demo.json:ro
+      - ./scripts:/app/scripts:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./container-init/setup-bench-routing.sh:/setup-bench-routing.sh:ro
+    labels:
+      service: benchmark
+    networks:
+      bench_net:
+        ipv4_address: 172.31.100.10
+    command: sh -c "/setup-bench-routing.sh && sleep infinity"
+    restart: unless-stopped
+
+networks:
+  bench_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.100.0/24
+
+  ipfs_org1_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.1.0/24
+
+  ipfs_org2_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.2.0/24
+
+  ipfs_org3_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.3.0/24
+
+  ipfs_org4_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.4.0/24
+
+  ipfs_org5_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.5.0/24
+
+  ipfs_org6_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.6.0/24
+
+  ipfs_org7_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.7.0/24
+
+  ipfs_org8_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.8.0/24
+
+  ipfs_org9_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.9.0/24
+
+  ipfs_org10_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.31.10.0/24
+
+volumes:
+  ipfs-org1-data:
+  ipfs-org2-data:
+  ipfs-org3-data:
+  ipfs-org4-data:
+  ipfs-org5-data:
+  ipfs-org6-data:
+  ipfs-org7-data:
+  ipfs-org8-data:
+  ipfs-org9-data:
+  ipfs-org10-data:

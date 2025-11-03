@@ -1,0 +1,102 @@
+{
+  "testConfiguration": {
+    "name": "IPFS Bandwidth Performance Test (Router Pod)",
+    "description": "Test IPFS performance under different bandwidth constraints using Router Pod architecture",
+    "testDirectory": "/test-files",
+    "iterations": 2,
+    "outputDirectory": "/results",
+    "timeout": 600000
+  },
+  "testFiles": [
+    {
+      "filename": "test10m.dat",
+      "size": "10MB",
+      "sizeBytes": 10485760
+    },
+    {
+      "filename": "test50m.dat",
+      "size": "50MB",
+      "sizeBytes": 52428800
+    },
+    {
+      "filename": "test100m.dat",
+      "size": "100MB",
+      "sizeBytes": 104857600
+    },
+    {
+      "filename": "test250m.dat",
+      "size": "250MB",
+      "sizeBytes": 262144000
+    },
+    {
+      "filename": "test500m.dat",
+      "size": "500MB",
+      "sizeBytes": 524288000
+    },
+    {
+      "filename": "test1g.dat",
+      "size": "1GB",
+      "sizeBytes": 1073741824
+    }
+  ],
+  "networkScenarios": [
+    {
+      "id": "100mbps",
+      "name": "100 Mbps Bandwidth (Router Pod)",
+      "description": "Test with 100 Mbps bandwidth limit on each router",
+      "bandwidth": "100mbit",
+      "bandwidthValue": 100000000,
+      "bandwidthCommand": "/app/scripts/network-chaos/limit-bandwidth-routers.sh",
+      "enabled": true
+    }
+  ],
+  "testTargets": [
+    {
+      "container": "ipfs-org1",
+      "role": "upload",
+      "apiPort": 5001,
+      "gatewayPort": 8080
+    },
+    {
+      "container": "ipfs-org2",
+      "role": "download",
+      "apiPort": 5001,
+      "gatewayPort": 8080
+    }
+  ],
+  "testMetrics": [
+    "uploadTime",
+    "downloadTime",
+    "throughput",
+    "latency",
+    "successRate",
+    "errorCount"
+  ],
+  "testPhases": [
+    {
+      "phase": 1,
+      "name": "100 Mbps Test",
+      "description": "Test with 100 Mbps bandwidth limit",
+      "scenarioId": "100mbps"
+    }
+  ],
+  "reporting": {
+    "format": "json",
+    "includeStatistics": true,
+    "statistics": [
+      "mean",
+      "median",
+      "min",
+      "max",
+      "stddev",
+      "p95",
+      "p99"
+    ],
+    "generateCharts": true,
+    "chartTypes": [
+      "throughput-comparison",
+      "file-size-performance",
+      "bandwidth-impact"
+    ]
+  }
+}
