@@ -3,16 +3,38 @@ variable "project_id" {
   type        = string
 }
 
-variable "region" {
-  description = "GCP region for resources"
-  type        = string
-  default     = "asia-northeast1"
-}
-
-variable "zone" {
-  description = "GCP zone for compute instances"
-  type        = string
-  default     = "asia-northeast1-a"
+variable "regions" {
+  description = "Map of region configurations for IPFS nodes"
+  type = map(object({
+    region = string
+    zone   = string
+  }))
+  default = {
+    tokyo = {
+      region = "asia-northeast1"
+      zone   = "asia-northeast1-a"
+    }
+    osaka = {
+      region = "asia-northeast2"
+      zone   = "asia-northeast2-a"
+    }
+    singapore = {
+      region = "asia-southeast1"
+      zone   = "asia-southeast1-a"
+    }
+    taiwan = {
+      region = "asia-east1"
+      zone   = "asia-east1-a"
+    }
+    uswest = {
+      region = "us-west1"
+      zone   = "us-west1-a"
+    }
+    europe = {
+      region = "europe-west1"
+      zone   = "europe-west1-b"
+    }
+  }
 }
 
 variable "prefix" {
@@ -25,12 +47,6 @@ variable "environment" {
   description = "Environment name (e.g., dev, staging, prod)"
   type        = string
   default     = "dev"
-}
-
-variable "node_count" {
-  description = "Number of IPFS nodes to create"
-  type        = number
-  default     = 4
 }
 
 variable "machine_type" {

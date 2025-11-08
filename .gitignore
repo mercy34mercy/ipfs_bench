@@ -24,6 +24,8 @@ venv/
 env/
 ENV/
 *.egg-info/
+.envrc
+.env
 
 # Go
 .gocache/

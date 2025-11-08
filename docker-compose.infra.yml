@@ -1,0 +1,18 @@
+services:
+  # NOTE: Qdrant（Cipher用ベクトルデータベース）
+  qdrant_ipfs:
+    image: qdrant/qdrant:latest
+    container_name: qdrant_ipfs
+    restart: unless-stopped
+    ports:
+      - "16333:6333"  # HTTP API
+      - "16334:6334"  # gRPC
+    volumes:
+      - qdrant_ipfs_data:/qdrant/storage
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+volumes:
+  qdrant_ipfs_data:

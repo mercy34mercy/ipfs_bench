@@ -283,6 +283,29 @@ gcloud auth application-default login
 - 必要に応じて quota 増加をリクエスト
 - または `node_count` を減らす
 
+### エラー: "permission denied while trying to connect to the Docker daemon socket"
+
+Docker の権限エラーが発生する場合、ユーザーが `docker` グループに追加されていません。
+
+**解決方法:**
+
+```bash
+# 自分のユーザーを docker グループに追加
+sudo usermod -aG docker $USER
+
+# 一度ログアウト
+exit
+
+# 再度ログイン
+gcloud compute ssh ipfs-bench-node-1 --zone=asia-northeast1-a --project=research-383706
+
+# 確認
+groups  # docker が含まれているはず
+docker ps  # 正常に動作するはず
+```
+
+**注意:** グループの変更は再ログイン後に有効になります。
+
 ### SSH 接続できない
 
 ```bash

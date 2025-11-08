@@ -1,0 +1,164 @@
+<mxfile host="app.diagrams.net" modified="2025-11-03T09:30:00.000Z" agent="draw.io" version="24.0.0">
+  <diagram name="Terraform Architecture" id="terraform-local-to-gcp">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ローカル環境 -->
+        <mxCell id="local-env" value="ローカル環境 (Mac)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="380" height="500" as="geometry" />
+        </mxCell>
+
+        <!-- 開発者 -->
+        <mxCell id="developer" value="開発者" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="240" y="140" width="60" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Terraform CLI -->
+        <mxCell id="terraform-cli" value="Terraform CLI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="120" y="260" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 設定ファイル群 -->
+        <mxCell id="config-group" value="Terraform 設定ファイル" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="120" y="360" width="300" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="main-tf" value="main.tf&#xa;(リソース定義)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="140" y="390" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="variables-tf" value="variables.tf&#xa;(変数定義)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="280" y="390" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="outputs-tf" value="outputs.tf&#xa;(出力定義)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="140" y="450" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tfvars" value="terraform.tfvars&#xa;(実際の値)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="280" y="450" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tfstate" value="terraform.tfstate&#xa;(状態ファイル)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="140" y="510" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 認証情報 -->
+        <mxCell id="gcloud-auth" value="gcloud 認証情報&#xa;~/.config/gcloud/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="500" y="260" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- GCP環境 -->
+        <mxCell id="gcp-env" value="Google Cloud Platform (GCP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="720" y="100" width="380" height="500" as="geometry" />
+        </mxCell>
+
+        <!-- GCP APIs -->
+        <mxCell id="gcp-apis" value="GCP APIs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="760" y="140" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Compute Engine -->
+        <mxCell id="compute-engine" value="Compute Engine" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="760" y="240" width="300" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vm-instance" value="VM インスタンス&#xa;ipfs-bench-node-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="780" y="270" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vm-disk" value="ディスク&#xa;30GB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="920" y="270" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vm-ip" value="外部IP&#xa;35.243.69.51" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="780" y="330" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ファイアウォール -->
+        <mxCell id="firewall" value="ファイアウォールルール" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="760" y="420" width="300" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="fw-rule" value="ipfs-bench-allow-ipfs&#xa;SSH (22), IPFS (4001, 5001, 8080)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="780" y="450" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="fw-source" value="送信元: 0.0.0.0/0&#xa;ターゲット: ipfs-node タグ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="780" y="510" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 矢印: 開発者 -> Terraform CLI -->
+        <mxCell id="arrow1" value="terraform apply" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1" source="developer" target="terraform-cli">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="400" as="sourcePoint" />
+            <mxPoint x="570" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 矢印: Terraform CLI -> 設定ファイル -->
+        <mxCell id="arrow2" value="読み込み" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;fillColor=#e1d5e7;strokeColor=#9673a6;" edge="1" parent="1" source="terraform-cli" target="config-group">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="400" as="sourcePoint" />
+            <mxPoint x="570" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 矢印: gcloud認証 -> Terraform CLI -->
+        <mxCell id="arrow3" value="認証" style="endArrow=classic;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1" source="gcloud-auth" target="terraform-cli">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="400" as="sourcePoint" />
+            <mxPoint x="570" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 矢印: Terraform CLI -> GCP APIs -->
+        <mxCell id="arrow4" value="API リクエスト&#xa;(create/update/delete)" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="terraform-cli" target="gcp-apis">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="400" as="sourcePoint" />
+            <mxPoint x="570" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 矢印: GCP APIs -> Compute Engine -->
+        <mxCell id="arrow5" value="リソース作成" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#fff2cc;strokeColor=#d6b656;" edge="1" parent="1" source="gcp-apis" target="compute-engine">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="400" as="sourcePoint" />
+            <mxPoint x="570" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 矢印: GCP APIs -> Firewall -->
+        <mxCell id="arrow6" value="ルール作成" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;" edge="1" parent="1" source="compute-engine" target="firewall">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="450" as="sourcePoint" />
+            <mxPoint x="570" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 矢印: GCP APIs -> Terraform (状態同期) -->
+        <mxCell id="arrow7" value="状態同期" style="endArrow=classic;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;fillColor=#f8cecc;strokeColor=#b85450;startArrow=classic;startFill=1;" edge="1" parent="1" source="gcp-apis" target="tfstate">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="450" as="sourcePoint" />
+            <mxPoint x="570" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="580" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 注釈 -->
+        <mxCell id="note1" value="1. terraform init&#xa;2. terraform plan&#xa;3. terraform apply" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Courier New;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note2" value="作成されるリソース:&#xa;• VM インスタンス (n1-standard-2)&#xa;• ファイアウォールルール&#xa;• 外部 IP アドレス&#xa;• ディスク (30GB)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="720" y="30" width="280" height="60" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

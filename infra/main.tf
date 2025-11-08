@@ -11,8 +11,6 @@ terraform {
 
 provider "google" {
   project = var.project_id
-  region  = var.region
-  zone    = var.zone
 }
 
 # VPC Network (optional, uses default if not created)
@@ -65,8 +63,18 @@ locals {
       echo "Docker already installed"
     fi
 
-    # Add user to docker group
-    usermod -aG docker ${var.ssh_user}
+    # Add default user to docker group
+    usermod -aG docker ${var.ssh_user} 2>/dev/null || true
+
+    # Auto-add any new users to docker group on first login
+    cat > /etc/profile.d/docker-group.sh <<'SCRIPT'
+#!/bin/bash
+if ! groups | grep -q docker; then
+  sudo usermod -aG docker $USER 2>/dev/null
+  echo "Added $USER to docker group. Please log out and log back in."
+fi
+SCRIPT
+    chmod +x /etc/profile.d/docker-group.sh
 
     # Install docker-compose
     if ! command -v docker-compose &> /dev/null; then
@@ -103,16 +111,16 @@ locals {
 
     echo "=== Setup completed ==="
     echo "Instance is ready for IPFS benchmarking"
-    echo "SSH: gcloud compute ssh ${var.prefix}-node-$${HOSTNAME##*-} --zone=${var.zone}"
   EOT
 }
 
-# Compute Engine instances for IPFS nodes
+# Compute Engine instances for IPFS nodes (one per region)
 resource "google_compute_instance" "ipfs_nodes" {
-  count        = var.node_count
-  name         = "${var.prefix}-node-${count.index + 1}"
+  for_each = var.regions
+
+  name         = "${var.prefix}-${each.key}"
   machine_type = var.machine_type
-  zone         = var.zone
+  zone         = each.value.zone
 
   tags = ["ipfs-node"]
 
@@ -129,7 +137,7 @@ resource "google_compute_instance" "ipfs_nodes" {
 
     access_config {
       # Ephemeral public IP
-      nat_ip = var.use_static_ip ? google_compute_address.ipfs_static_ip[count.index].address : null
+      nat_ip = var.use_static_ip ? google_compute_address.ipfs_static_ip[each.key].address : null
     }
   }
 
@@ -152,12 +160,14 @@ resource "google_compute_instance" "ipfs_nodes" {
     environment = var.environment
     purpose     = "ipfs-benchmark"
     managed_by  = "terraform"
+    region_name = each.key
   }
 }
 
-# Static IP addresses (optional)
+# Static IP addresses (optional, one per region)
 resource "google_compute_address" "ipfs_static_ip" {
-  count  = var.use_static_ip ? var.node_count : 0
-  name   = "${var.prefix}-ip-${count.index + 1}"
-  region = var.region
+  for_each = var.use_static_ip ? var.regions : {}
+
+  name   = "${var.prefix}-${each.key}-ip"
+  region = each.value.region
 }

@@ -20,6 +20,28 @@
         "command": "npx",
         "args": ["-y", "@upstash/context7-mcp@latest"],
         "env": {}
+      },
+      "notion": {
+        "command": "npx",
+        "args": ["-y", "@notionhq/notion-mcp-server"],
+        "env": {
+          "NOTION_TOKEN": "${NOTION_TOKEN}"
+        }
+      },
+      "cipher": {
+        "type": "stdio",
+        "command": "cipher",
+        "args": ["--mode", "mcp", "--agent", "cipher.yml"],
+        "env": {
+          "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+        }
+      },
+      "ppt": {
+        "command": "uvx",
+        "args": [
+          "--from", "office-powerpoint-mcp-server", "ppt_mcp_server"
+        ],
+        "env": {}
       }
     }
   }

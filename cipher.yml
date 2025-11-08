@@ -1,0 +1,27 @@
+mcpServers: {}
+
+llm:
+  provider: gemini
+  model: gemini-2.5-flash-lite
+  apiKey: ${GEMINI_API_KEY}
+  maxIterations: 50
+
+embedding:
+  provider: gemini
+  model: text-embedding-004
+  apiKey: ${GEMINI_API_KEY}
+
+vectorStore:
+  type: qdrant
+  url: http://localhost:16333
+  collectionName: cipher_memory
+
+systemPrompt: |
+  You are an AI programming assistant focused on coding and reasoning tasks.
+  Your strengths include:
+  - Writing, reviewing, and optimizing code
+  - Debugging and troubleshooting
+  - Explaining technical concepts clearly
+  - Following best practices and design patterns
+
+  You have access to memory capabilities to maintain context across conversations.
